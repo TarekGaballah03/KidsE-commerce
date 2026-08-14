@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --background: 35 100% 98%;      /* Warm Cream #fefbf6 */
+    --foreground: 220 30% 18%;       /* Soft Slate Charcoal */
+    --primary: 345 85% 65%;          /* Rose Coral Pastel #f43f5e */
+    --primary-light: 345 90% 94%;
+    --secondary: 198 88% 68%;        /* Sky Blue Pastel #38bdf8 */
+    --accent-yellow: 45 95% 70%;     /* Buttercup Yellow #facc15 */
+    --accent-mint: 155 60% 75%;      /* Mint Green Pastel #6ee7b7 */
+    --card: 0 0% 100%;
+    --card-foreground: 220 30% 18%;
+    --border: 35 30% 90%;
+    --radius: 1rem;
+  }
+}
+
+body {
+  background-color: #fcf8f2;
+  color: #1e293b;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom playful scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #fbf7f0;
+}
+::-webkit-scrollbar-thumb {
+  background: #fda4af;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #f43f5e;
+}
+
+/* Floating Animation Keyframes */
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(4deg); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.05); }
+}
+
+.animate-float {
+  animation: floatSlow 5s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 4s ease-in-out infinite;
+}
