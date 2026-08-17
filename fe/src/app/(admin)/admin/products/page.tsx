@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { apiFetch } from '../../../../lib/api';
 import { formatPrice } from '../../../../lib/utils';
 import { Product, Category } from '../../../../types';
-import { Plus, Search, Edit3, Trash2, Check, X, Layers, Image as ImageIcon, Sparkles } from 'lucide-react';
+import { Plus, Search, Edit3, Trash2 } from 'lucide-react';
 
 export default function AdminProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -148,7 +148,7 @@ export default function AdminProductsPage() {
   };
 
   const handleArchive = async (id: string) => {
-    if (!confirm('Are you sure you want to archive this product?')) return;
+    if (!confirm('Are you sure you want to archive this garment?')) return;
     try {
       await apiFetch(`/products/${id}`, { method: 'DELETE' });
       loadData();
@@ -160,7 +160,7 @@ export default function AdminProductsPage() {
   const addVariantRow = () => {
     setVariants([
       ...variants,
-      { sku: `SKU-${Date.now().toString().slice(-4)}`, size: '4Y', colorName: 'Soft Pink', colorHex: '#f472b6', price: 450, compareAtPrice: null, stockQuantity: 10 },
+      { sku: `SKU-${Date.now().toString().slice(-4)}`, size: '4Y', colorName: 'Sage Green', colorHex: '#8fa89b', price: 450, compareAtPrice: null, stockQuantity: 10 },
     ]);
   };
 
@@ -170,58 +170,59 @@ export default function AdminProductsPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-7xl mx-auto">
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">Products & Variants Management</h1>
-          <p className="text-xs text-slate-500 mt-0.5">Manage products, pricing overrides, sizes, colors & stock SKUs.</p>
+          <span className="text-[11px] uppercase font-semibold tracking-[0.2em] text-[#5e5f5c] block">Catalogue Management</span>
+          <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#1a1a1a] tracking-tight">Garments & Outfits</h1>
+          <p className="text-xs text-[#5e5f5c] mt-0.5">Manage products, variants, SKU inventory, and price tags.</p>
         </div>
 
         <button
           onClick={handleOpenCreate}
-          className="bg-rose-500 hover:bg-rose-600 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-md transition-colors flex items-center gap-1.5 self-start sm:self-auto"
+          className="bg-[#1a1a1a] hover:bg-[#000000] text-white font-semibold text-xs uppercase tracking-widest px-5 py-3 rounded-lg shadow-xs transition-colors flex items-center gap-2 self-start sm:self-auto"
         >
-          <Plus className="w-4 h-4" /> Create New Product
+          <Plus className="w-4 h-4" /> Add New Garment
         </button>
       </div>
 
       {/* Search Bar */}
-      <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-2xs">
+      <div className="bg-white p-4 rounded-lg border border-[#e5e2e1] shadow-xs">
         <div className="relative">
           <input
             type="text"
-            placeholder="Search products by title, SKU, or description..."
+            placeholder="Search catalogue by title, SKU, or color..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-rose-300"
+            className="w-full pl-9 pr-3.5 py-2.5 text-xs rounded-md bg-[#f7f3f2] border border-[#e5e2e1] focus:ring-1 focus:ring-[#1a1a1a] focus:bg-white text-[#1a1a1a]"
           />
-          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
+          <Search className="w-4 h-4 text-[#5e5f5c] absolute left-3 top-3" />
         </div>
       </div>
 
       {/* Product List Table */}
-      <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs overflow-hidden">
+      <div className="bg-white rounded-lg border border-[#e5e2e1] shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-xs text-left text-slate-700">
-            <thead className="bg-slate-50 text-slate-500 font-bold uppercase text-[10px] tracking-wider border-b border-slate-100">
+          <table className="w-full text-xs text-left text-[#1c1b1b]">
+            <thead className="bg-[#f7f3f2] text-[#5e5f5c] font-semibold uppercase text-[10px] tracking-wider border-b border-[#e5e2e1]">
               <tr>
-                <th className="p-4">Product</th>
-                <th className="p-4">Age</th>
+                <th className="p-4">Garment</th>
+                <th className="p-4">Age Bracket</th>
                 <th className="p-4">Variants</th>
                 <th className="p-4">Total Stock</th>
                 <th className="p-4">Status</th>
                 <th className="p-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-[#e5e2e1]">
               {loading ? (
                 <tr>
-                  <td colSpan={6} className="p-8 text-center text-slate-400">Loading products...</td>
+                  <td colSpan={6} className="p-8 text-center text-[#5e5f5c]">Loading collection...</td>
                 </tr>
               ) : products.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="p-8 text-center text-slate-400">No products found.</td>
+                  <td colSpan={6} className="p-8 text-center text-[#5e5f5c]">No garments found in database.</td>
                 </tr>
               ) : (
                 products.map((prod) => {
@@ -229,56 +230,56 @@ export default function AdminProductsPage() {
                   const minPrice = Math.min(...prod.variants.map((v) => v.price));
 
                   return (
-                    <tr key={prod._id} className="hover:bg-slate-50/80 transition-colors">
+                    <tr key={prod._id} className="hover:bg-[#fdf8f8] transition-colors">
                       <td className="p-4">
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-3.5">
                           <img
                             src={prod.images[0]?.url || 'https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=200'}
                             alt={prod.title}
-                            className="w-10 h-10 rounded-xl object-cover border border-slate-200"
+                            className="w-11 h-14 rounded-md object-cover border border-[#e5e2e1]"
                           />
                           <div>
-                            <span className="font-bold text-slate-900 block">{prod.title}</span>
-                            <span className="text-[11px] text-rose-600 font-extrabold">{formatPrice(minPrice)}</span>
+                            <span className="font-serif font-semibold text-sm text-[#1a1a1a] block">{prod.title}</span>
+                            <span className="font-serif font-bold text-xs text-[#5e5f5c]">{formatPrice(minPrice)}</span>
                           </div>
                         </div>
                       </td>
 
-                      <td className="p-4 font-bold">{prod.ageRange}Y</td>
+                      <td className="p-4 font-semibold text-[#1a1a1a]">{prod.ageRange}Y</td>
 
                       <td className="p-4">
-                        <span className="bg-slate-100 font-bold px-2 py-0.5 rounded-md text-[11px]">
-                          {prod.variants.length} variant(s)
+                        <span className="bg-[#f1edec] font-semibold px-2.5 py-1 rounded-md text-[11px] text-[#1a1a1a] border border-[#e5e2e1]">
+                          {prod.variants.length} SKU(s)
                         </span>
                       </td>
 
                       <td className="p-4">
-                        <span className={`font-bold px-2 py-0.5 rounded-full text-[11px] ${totalStock <= 5 ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-800'}`}>
+                        <span className={`font-semibold px-2.5 py-1 rounded-full text-[11px] border ${totalStock <= 5 ? 'bg-[#ffdad6]/40 text-[#ba1a1a] border-[#ba1a1a]/30' : 'bg-[#f1edec] text-[#1a1a1a] border-[#e5e2e1]'}`}>
                           {totalStock} in stock
                         </span>
                       </td>
 
                       <td className="p-4">
                         {prod.isPublished ? (
-                          <span className="bg-emerald-50 text-emerald-700 font-bold px-2.5 py-0.5 rounded-full">Published</span>
+                          <span className="bg-[#f1edec] text-[#1a1a1a] font-semibold px-2.5 py-1 rounded-full text-[11px] border border-[#e5e2e1]">Live</span>
                         ) : (
-                          <span className="bg-slate-100 text-slate-500 font-bold px-2.5 py-0.5 rounded-full">Draft</span>
+                          <span className="bg-[#ebe7e6] text-[#5e5f5c] font-semibold px-2.5 py-1 rounded-full text-[11px]">Draft</span>
                         )}
                       </td>
 
                       <td className="p-4 text-right space-x-2">
                         <button
                           onClick={() => handleOpenEdit(prod)}
-                          className="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
-                          title="Edit Product"
+                          className="p-2 rounded-md bg-[#f1edec] hover:bg-[#ebe7e6] text-[#1a1a1a] transition-colors"
+                          title="Edit Garment"
                         >
                           <Edit3 className="w-3.5 h-3.5" />
                         </button>
 
                         <button
                           onClick={() => handleArchive(prod._id)}
-                          className="p-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 transition-colors"
-                          title="Archive Product"
+                          className="p-2 rounded-md bg-[#ffdad6]/40 hover:bg-[#ffdad6] text-[#ba1a1a] transition-colors"
+                          title="Archive"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
@@ -294,24 +295,24 @@ export default function AdminProductsPage() {
 
       {/* Create / Edit Product Modal */}
       {dialogOpen && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl p-6 max-w-3xl w-full shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <h3 className="font-extrabold text-slate-900 text-base">
-                {editingProduct ? 'Edit Product & Variants' : 'Create New Product'}
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-[#1a1a1a]/50 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-[#fdf8f8] rounded-lg p-6 sm:p-8 max-w-3xl w-full shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto border border-[#e5e2e1]">
+            <div className="flex items-center justify-between border-b border-[#e5e2e1] pb-4">
+              <h3 className="font-serif font-bold text-[#1a1a1a] text-lg">
+                {editingProduct ? 'Edit Garment & Variants' : 'Add New Garment to Collection'}
               </h3>
-              <button onClick={() => setDialogOpen(false)} className="text-slate-400 hover:text-slate-600">✕</button>
+              <button onClick={() => setDialogOpen(false)} className="text-[#5e5f5c] hover:text-[#1a1a1a] p-1">✕</button>
             </div>
 
             <form onSubmit={handleSaveProduct} className="space-y-6">
               {/* Product Basic Fields */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">Product Title *</label>
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-[#1a1a1a] mb-1.5">Product Title *</label>
                   <input
                     type="text"
                     required
-                    placeholder="e.g. Floral Twirl Dress"
+                    placeholder="e.g. Linen Heirloom Romper"
                     value={title}
                     onChange={(e) => {
                       setTitle(e.target.value);
@@ -319,27 +320,27 @@ export default function AdminProductsPage() {
                         setSlug(e.target.value.toLowerCase().replace(/[^a-z0-9]+/g, '-'));
                       }
                     }}
-                    className="w-full px-3.5 py-2 text-xs rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-rose-300"
+                    className="w-full px-3.5 py-2.5 text-xs rounded-md bg-[#f7f3f2] border border-[#e5e2e1] focus:ring-1 focus:ring-[#1a1a1a] focus:bg-white text-[#1a1a1a]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">Slug (URL)</label>
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-[#1a1a1a] mb-1.5">Slug Identifier</label>
                   <input
                     type="text"
-                    placeholder="floral-twirl-dress"
+                    placeholder="linen-heirloom-romper"
                     value={slug}
                     onChange={(e) => setSlug(e.target.value)}
-                    className="w-full px-3.5 py-2 text-xs font-mono rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-rose-300"
+                    className="w-full px-3.5 py-2.5 text-xs font-mono rounded-md bg-[#f7f3f2] border border-[#e5e2e1] focus:ring-1 focus:ring-[#1a1a1a] focus:bg-white text-[#1a1a1a]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">Age Range *</label>
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-[#1a1a1a] mb-1.5">Age Range Bracket *</label>
                   <select
                     value={ageRange}
                     onChange={(e) => setAgeRange(e.target.value as any)}
-                    className="w-full px-3.5 py-2 text-xs font-bold rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-rose-300"
+                    className="w-full px-3.5 py-2.5 text-xs font-semibold rounded-md bg-[#f7f3f2] border border-[#e5e2e1] focus:ring-1 focus:ring-[#1a1a1a] text-[#1a1a1a]"
                   >
                     <option value="0-2">0 – 2 Years</option>
                     <option value="3-5">3 – 5 Years</option>
@@ -349,80 +350,80 @@ export default function AdminProductsPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">Main Image URL</label>
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-[#1a1a1a] mb-1.5">Primary Photography URL</label>
                   <input
                     type="text"
                     placeholder="https://..."
                     value={imageUrl}
                     onChange={(e) => setImageUrl(e.target.value)}
-                    className="w-full px-3.5 py-2 text-xs rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-rose-300"
+                    className="w-full px-3.5 py-2.5 text-xs rounded-md bg-[#f7f3f2] border border-[#e5e2e1] focus:ring-1 focus:ring-[#1a1a1a] focus:bg-white text-[#1a1a1a]"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Description</label>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-[#1a1a1a] mb-1.5">Description & Fit</label>
                 <textarea
                   rows={2}
-                  placeholder="Detailed product fabric, care instructions, fit..."
+                  placeholder="Fabric narrative, care instructions, silhouette..."
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  className="w-full px-3.5 py-2 text-xs rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-rose-300"
+                  className="w-full px-3.5 py-2 text-xs rounded-md bg-[#f7f3f2] border border-[#e5e2e1] focus:ring-1 focus:ring-[#1a1a1a] focus:bg-white text-[#1a1a1a]"
                 />
               </div>
 
               {/* Toggles */}
               <div className="flex items-center gap-6 pt-2">
-                <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-700">
+                <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold text-[#1a1a1a]">
                   <input
                     type="checkbox"
                     checked={isPublished}
                     onChange={(e) => setIsPublished(e.target.checked)}
-                    className="rounded text-rose-500 w-4 h-4"
+                    className="rounded text-[#1a1a1a] w-4 h-4"
                   />
-                  <span>Published</span>
+                  <span>Published on Storefront</span>
                 </label>
 
-                <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-700">
+                <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold text-[#1a1a1a]">
                   <input
                     type="checkbox"
                     checked={isFeatured}
                     onChange={(e) => setIsFeatured(e.target.checked)}
-                    className="rounded text-rose-500 w-4 h-4"
+                    className="rounded text-[#1a1a1a] w-4 h-4"
                   />
-                  <span>Featured Product</span>
+                  <span>Featured in Curated Row</span>
                 </label>
 
-                <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-700">
+                <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold text-[#1a1a1a]">
                   <input
                     type="checkbox"
                     checked={isNewArrival}
                     onChange={(e) => setIsNewArrival(e.target.checked)}
-                    className="rounded text-rose-500 w-4 h-4"
+                    className="rounded text-[#1a1a1a] w-4 h-4"
                   />
-                  <span>New Arrival</span>
+                  <span>New Drop Badge</span>
                 </label>
               </div>
 
               {/* Variant Manager Table */}
-              <div className="space-y-3 pt-4 border-t border-slate-100">
+              <div className="space-y-3 pt-4 border-t border-[#e5e2e1]">
                 <div className="flex items-center justify-between">
-                  <h4 className="font-extrabold text-slate-900 text-xs uppercase tracking-wider">
-                    Variant SKUs & Inventory ({variants.length})
+                  <h4 className="font-serif font-bold text-[#1a1a1a] text-sm">
+                    Variant SKUs & Inventory Stock ({variants.length})
                   </h4>
                   <button
                     type="button"
                     onClick={addVariantRow}
-                    className="text-xs font-bold text-rose-600 hover:underline flex items-center gap-1"
+                    className="text-xs font-semibold text-[#1a1a1a] underline flex items-center gap-1 hover:opacity-75"
                   >
-                    <Plus className="w-3.5 h-3.5" /> Add Variant Row
+                    <Plus className="w-3.5 h-3.5" /> Add SKU Variant
                   </button>
                 </div>
 
                 <div className="space-y-2">
                   {variants.map((v, i) => (
-                    <div key={i} className="grid grid-cols-12 gap-2 items-center bg-slate-50 p-2.5 rounded-xl border border-slate-200">
-                      <div className="col-span-2">
+                    <div key={i} className="grid grid-cols-12 gap-2 items-center bg-[#f7f3f2] p-3 rounded-md border border-[#e5e2e1]">
+                      <div className="col-span-3">
                         <input
                           type="text"
                           placeholder="SKU"
@@ -432,7 +433,7 @@ export default function AdminProductsPage() {
                             copy[i].sku = e.target.value;
                             setVariants(copy);
                           }}
-                          className="w-full px-2 py-1 text-[11px] font-mono rounded-lg border border-slate-200 bg-white"
+                          className="w-full px-2.5 py-1.5 text-[11px] font-mono rounded-md border border-[#e5e2e1] bg-white text-[#1a1a1a]"
                         />
                       </div>
 
@@ -444,7 +445,7 @@ export default function AdminProductsPage() {
                             copy[i].size = e.target.value;
                             setVariants(copy);
                           }}
-                          className="w-full px-1.5 py-1 text-[11px] font-bold rounded-lg border border-slate-200 bg-white"
+                          className="w-full px-2 py-1.5 text-[11px] font-semibold rounded-md border border-[#e5e2e1] bg-white text-[#1a1a1a]"
                         >
                           <option value="6M">6M</option>
                           <option value="12M">12M</option>
@@ -468,13 +469,13 @@ export default function AdminProductsPage() {
                             copy[i].colorName = e.target.value;
                             setVariants(copy);
                           }}
-                          className="w-full px-2 py-1 text-[11px] rounded-lg border border-slate-200 bg-white"
+                          className="w-full px-2.5 py-1.5 text-[11px] rounded-md border border-[#e5e2e1] bg-white text-[#1a1a1a]"
                         />
                       </div>
 
                       <div className="col-span-2">
                         <input
-                          type="text"
+                          type="number"
                           placeholder="Price"
                           value={v.price}
                           onChange={(e) => {
@@ -482,7 +483,7 @@ export default function AdminProductsPage() {
                             copy[i].price = Number(e.target.value);
                             setVariants(copy);
                           }}
-                          className="w-full px-2 py-1 text-[11px] font-bold rounded-lg border border-slate-200 bg-white"
+                          className="w-full px-2.5 py-1.5 text-[11px] font-semibold rounded-md border border-[#e5e2e1] bg-white text-[#1a1a1a]"
                         />
                       </div>
 
@@ -496,15 +497,15 @@ export default function AdminProductsPage() {
                             copy[i].stockQuantity = Number(e.target.value);
                             setVariants(copy);
                           }}
-                          className="w-full px-2 py-1 text-[11px] font-bold rounded-lg border border-slate-200 bg-white"
+                          className="w-full px-2.5 py-1.5 text-[11px] font-semibold rounded-md border border-[#e5e2e1] bg-white text-[#1a1a1a]"
                         />
                       </div>
 
-                      <div className="col-span-2 text-right">
+                      <div className="col-span-1 text-right">
                         <button
                           type="button"
                           onClick={() => removeVariantRow(i)}
-                          className="text-rose-500 p-1 hover:bg-rose-100 rounded-md"
+                          className="text-[#ba1a1a] p-1 hover:bg-[#ffdad6] rounded-md"
                         >
                           ✕
                         </button>
@@ -515,20 +516,20 @@ export default function AdminProductsPage() {
               </div>
 
               {/* Submit Buttons */}
-              <div className="flex justify-end gap-3 pt-4 border-t border-slate-100">
+              <div className="flex justify-end gap-3 pt-4 border-t border-[#e5e2e1]">
                 <button
                   type="button"
                   onClick={() => setDialogOpen(false)}
-                  className="px-4 py-2 text-xs font-bold text-slate-600 bg-slate-100 rounded-xl"
+                  className="px-4 py-2.5 text-xs font-semibold text-[#5e5f5c] bg-[#f1edec] rounded-lg"
                 >
                   Cancel
                 </button>
 
                 <button
                   type="submit"
-                  className="px-6 py-2 text-xs font-bold text-white bg-rose-500 hover:bg-rose-600 rounded-xl shadow-md"
+                  className="px-6 py-2.5 text-xs uppercase tracking-widest font-semibold text-white bg-[#1a1a1a] hover:bg-[#000000] rounded-lg shadow-xs"
                 >
-                  Save Product
+                  Save Garment
                 </button>
               </div>
             </form>
@@ -539,3 +540,4 @@ export default function AdminProductsPage() {
     </div>
   );
 }
+

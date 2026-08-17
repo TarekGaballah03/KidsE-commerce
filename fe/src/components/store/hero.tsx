@@ -2,103 +2,76 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, Sparkles, Heart, Star, ShieldCheck } from 'lucide-react';
-import { FloatingDoodles } from './floating-doodles';
+import { ArrowRight } from 'lucide-react';
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-pink-100/60 via-amber-50/40 to-sky-50/60 py-12 lg:py-20 rounded-b-[2.5rem] lg:rounded-b-[4rem] border-b border-pink-100">
-      <FloatingDoodles />
+    <section className="relative w-full min-h-[580px] lg:min-h-[680px] flex flex-col justify-end overflow-hidden pb-12 lg:pb-20 px-6 sm:px-12 bg-[#fdf8f8]">
+      {/* Background Editorial Image */}
+      <img
+        src="https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=1600&auto=format&fit=crop&q=80"
+        alt="Swan Editorial Kids Fashion"
+        className="absolute inset-0 w-full h-full object-cover object-center z-0 filter contrast-[0.95] brightness-[0.95]"
+      />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          
-          {/* Text Content */}
-          <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-xs border border-pink-200 text-rose-600 text-xs font-bold px-3.5 py-1.5 rounded-full shadow-xs">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-              <span>New Summer Collection 2026</span>
-            </div>
+      {/* Subtle Warm Gradient Overlay for Readability */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#fdf8f8] via-[#fdf8f8]/40 to-transparent z-10" />
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.15]">
-              Playful Outfits for{' '}
-              <span className="bg-gradient-to-r from-rose-500 via-purple-500 to-sky-500 bg-clip-text text-transparent">
-                Magical Moments
-              </span>
-            </h1>
+      {/* Hand-drawn scribble accent 1 (Star doodle) */}
+      <svg
+        className="scribble-accent top-[15%] right-[10%] w-16 h-16 text-[#1a1a1a]"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        viewBox="0 0 100 100"
+      >
+        <path d="M50 10 L60 40 L90 50 L60 60 L50 90 L40 60 L10 50 L40 40 Z" strokeLinejoin="round" />
+      </svg>
 
-            <p className="text-sm sm:text-base text-slate-600 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-              Ultra-soft organic cotton, durable twirl dresses, cozy sets, and adorable accessories crafted for happy playdates and everyday adventures across Egypt.
-            </p>
+      {/* Hand-drawn scribble accent 2 (Wave doodle) */}
+      <svg
+        className="scribble-accent top-[35%] left-[6%] w-24 h-12 text-[#1a1a1a]"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        viewBox="0 0 100 50"
+      >
+        <path d="M10 25 Q 30 10 50 25 T 90 25" strokeLinecap="round" />
+      </svg>
 
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
-              <Link
-                href="/products"
-                className="w-full sm:w-auto bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-bold text-sm px-8 py-3.5 rounded-2xl shadow-lg shadow-rose-200 hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 group"
-              >
-                <span>Shop New Collection</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
+      {/* Centered Editorial Content */}
+      <div className="relative z-20 flex flex-col items-center text-center max-w-2xl mx-auto space-y-4 pt-16">
+        <span className="text-[11px] uppercase font-bold tracking-[0.25em] text-[#5e5f5c] bg-[#ffffff]/80 backdrop-blur-xs px-3.5 py-1 rounded-full border border-[#c4c7c7]/40 shadow-xs">
+          New Autumn / Winter Drop
+        </span>
 
-              <Link
-                href="/products?category=boys"
-                className="w-full sm:w-auto bg-white/90 hover:bg-white text-slate-800 font-bold text-sm px-7 py-3.5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-2"
-              >
-                <span>Explore Categories</span>
-              </Link>
-            </div>
+        <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#1a1a1a] uppercase leading-[1.1]">
+          Made for Little Adventures.
+        </h1>
 
-            {/* Trust highlights */}
-            <div className="pt-6 grid grid-cols-3 gap-2 border-t border-pink-200/60 max-w-md mx-auto lg:mx-0 text-center sm:text-left">
-              <div>
-                <span className="block font-extrabold text-slate-900 text-base">100% COD</span>
-                <span className="text-[11px] text-slate-500 font-medium">Cash on Delivery</span>
-              </div>
-              <div>
-                <span className="block font-extrabold text-slate-900 text-base">Organic</span>
-                <span className="text-[11px] text-slate-500 font-medium">Soft Fabrics</span>
-              </div>
-              <div>
-                <span className="block font-extrabold text-slate-900 text-base">2-4 Days</span>
-                <span className="text-[11px] text-slate-500 font-medium">Egypt Delivery</span>
-              </div>
-            </div>
-          </div>
+        <p className="font-sans text-sm sm:text-base text-[#444748] max-w-md mx-auto leading-relaxed">
+          Unmatched comfort for every jump, run & story. Mindfully crafted with certified natural fabrics.
+        </p>
 
-          {/* Lifestyle Hero Image Cards */}
-          <div className="lg:col-span-5 relative">
-            <div className="relative mx-auto max-w-md lg:max-w-none">
-              {/* Main Image */}
-              <div className="aspect-4/5 rounded-3xl overflow-hidden shadow-2xl border-4 border-white transform rotate-1 hover:rotate-0 transition-transform duration-500 bg-slate-200">
-                <img
-                  src="https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=800"
-                  alt="Kids Fashion Hero"
-                  className="w-full h-full object-cover"
-                />
-              </div>
+        {/* CTA Button Actions */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-md pt-3">
+          <Link
+            href="/products"
+            className="w-full sm:w-auto flex-1 bg-[#1a1a1a] hover:bg-[#000000] text-white text-xs uppercase tracking-widest font-semibold py-4 px-8 rounded-lg shadow-sm hover:opacity-90 transition-all flex items-center justify-center gap-2 group"
+          >
+            <span>Shop New Collection</span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
 
-              {/* Floating Highlight Card 1 */}
-              <div className="absolute -bottom-6 -left-6 bg-white/95 backdrop-blur-md p-3.5 rounded-2xl shadow-xl border border-pink-100 flex items-center gap-3 animate-float">
-                <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center font-bold">
-                  <Star className="w-5 h-5 fill-amber-400" />
-                </div>
-                <div>
-                  <span className="block font-extrabold text-xs text-slate-900">Loved by 10k+ Moms</span>
-                  <span className="block text-[10px] text-slate-500 font-medium">⭐⭐⭐⭐⭐ Rated 4.9/5</span>
-                </div>
-              </div>
-
-              {/* Floating Highlight Card 2 */}
-              <div className="absolute -top-4 -right-4 bg-white/95 backdrop-blur-md px-3.5 py-2 rounded-2xl shadow-lg border border-sky-100 flex items-center gap-2">
-                <Heart className="w-4 h-4 text-rose-500 fill-rose-500" />
-                <span className="text-xs font-bold text-slate-800">100% Kids Safe</span>
-              </div>
-            </div>
-          </div>
-
+          <Link
+            href="/products?category=boys"
+            className="w-full sm:w-auto flex-1 bg-white/90 hover:bg-white text-[#1a1a1a] border border-[#1a1a1a] text-xs uppercase tracking-widest font-semibold py-4 px-8 rounded-lg shadow-xs hover:bg-[#f1edec] transition-all flex items-center justify-center"
+          >
+            <span>Explore The Drop</span>
+          </Link>
         </div>
       </div>
     </section>
   );
 }
+

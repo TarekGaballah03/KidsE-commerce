@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { ProductCard } from './product-card';
 import { Product } from '../../types';
-import { Sparkles, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 interface FeaturedCollectionsProps {
   featuredProducts: Product[];
@@ -17,70 +17,68 @@ export function FeaturedCollections({ featuredProducts, newArrivals }: FeaturedC
   const displayedProducts = activeTab === 'featured' ? featuredProducts : newArrivals;
 
   return (
-    <section className="py-16 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Header & Tabs */}
-        <div className="flex flex-col md:flex-row items-center justify-between mb-10 gap-4">
-          <div>
-            <span className="text-pink-600 font-bold text-xs uppercase tracking-widest bg-pink-50 px-3 py-1 rounded-full">
-              Handpicked Essentials
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2 tracking-tight">
-              Featured Collections
-            </h2>
-          </div>
-
-          {/* Tab Pill Buttons */}
-          <div className="flex items-center bg-slate-100 p-1.5 rounded-2xl border border-slate-200">
-            <button
-              onClick={() => setActiveTab('featured')}
-              className={`px-5 py-2 rounded-xl text-xs font-bold transition-all ${
-                activeTab === 'featured'
-                  ? 'bg-rose-500 text-white shadow-md'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              Best Sellers
-            </button>
-
-            <button
-              onClick={() => setActiveTab('new')}
-              className={`px-5 py-2 rounded-xl text-xs font-bold transition-all ${
-                activeTab === 'new'
-                  ? 'bg-rose-500 text-white shadow-md'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              New Arrivals
-            </button>
-          </div>
+    <section className="py-16 sm:py-24 bg-[#fdf8f8] px-6 sm:px-12 max-w-7xl mx-auto">
+      {/* Header & Tabs */}
+      <div className="flex flex-col md:flex-row items-center justify-between mb-10 sm:mb-14 gap-6">
+        <div>
+          <span className="text-[11px] uppercase font-semibold tracking-[0.2em] text-[#5e5f5c] block mb-2">
+            Selected Drops
+          </span>
+          <h2 className="font-serif text-2xl sm:text-4xl font-bold tracking-tight text-[#1a1a1a]">
+            Curated Essentials
+          </h2>
         </div>
 
-        {/* Product Grid */}
-        {displayedProducts.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {displayedProducts.slice(0, 8).map((product) => (
-              <ProductCard key={product._id} product={product} />
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-12 bg-slate-50 rounded-3xl border border-dashed border-slate-200">
-            <p className="text-slate-500 text-sm">No products found in this collection.</p>
-          </div>
-        )}
-
-        {/* Bottom CTA */}
-        <div className="text-center mt-12">
-          <Link
-            href="/products"
-            className="inline-flex items-center gap-2 bg-slate-900 hover:bg-rose-500 text-white text-xs font-bold px-7 py-3.5 rounded-2xl transition-all shadow-md hover:shadow-lg"
+        {/* Minimalist Tab Pill Buttons */}
+        <div className="flex items-center bg-[#f1edec] p-1 rounded-full border border-[#e5e2e1]">
+          <button
+            onClick={() => setActiveTab('featured')}
+            className={`px-6 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all ${
+              activeTab === 'featured'
+                ? 'bg-[#1a1a1a] text-white shadow-xs'
+                : 'text-[#5e5f5c] hover:text-[#1a1a1a]'
+            }`}
           >
-            <span>Explore All {displayedProducts.length}+ Outfits</span>
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+            Best Sellers
+          </button>
+
+          <button
+            onClick={() => setActiveTab('new')}
+            className={`px-6 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all ${
+              activeTab === 'new'
+                ? 'bg-[#1a1a1a] text-white shadow-xs'
+                : 'text-[#5e5f5c] hover:text-[#1a1a1a]'
+            }`}
+          >
+            New Arrivals
+          </button>
         </div>
+      </div>
+
+      {/* Product Grid */}
+      {displayedProducts.length > 0 ? (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8">
+          {displayedProducts.slice(0, 8).map((product) => (
+            <ProductCard key={product._id} product={product} />
+          ))}
+        </div>
+      ) : (
+        <div className="text-center py-16 bg-[#f7f3f2] rounded-lg border border-dashed border-[#c4c7c7]">
+          <p className="text-[#5e5f5c] text-sm">No products found in this collection.</p>
+        </div>
+      )}
+
+      {/* Bottom CTA */}
+      <div className="text-center mt-12 sm:mt-16">
+        <Link
+          href="/products"
+          className="inline-flex items-center gap-2 bg-[#1a1a1a] hover:bg-[#000000] text-white text-xs uppercase tracking-widest font-semibold px-8 py-4 rounded-lg transition-all shadow-xs hover:shadow-md group"
+        >
+          <span>View All {displayedProducts.length}+ Outfits</span>
+          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+        </Link>
       </div>
     </section>
   );
 }
+

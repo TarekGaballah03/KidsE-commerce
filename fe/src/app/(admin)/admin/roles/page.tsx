@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { apiFetch } from '../../../../lib/api';
 import { Role } from '../../../../types';
-import { Plus, Edit3, Trash2, ShieldCheck, Check } from 'lucide-react';
+import { Plus, Edit3, Trash2, ShieldCheck } from 'lucide-react';
 
 export default function AdminRolesPage() {
   const [roles, setRoles] = useState<Role[]>([]);
@@ -112,63 +112,64 @@ export default function AdminRolesPage() {
   };
 
   return (
-    <div className="space-y-6 max-w-5xl">
-      <div className="flex items-center justify-between">
+    <div className="space-y-6 max-w-5xl mx-auto">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">Roles & Permissions (RBAC)</h1>
-          <p className="text-xs text-slate-500 mt-0.5">Configure granular permission matrices per module for admin staff.</p>
+          <span className="text-[11px] uppercase font-semibold tracking-[0.2em] text-[#5e5f5c] block">Permission Matrix</span>
+          <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#1a1a1a] tracking-tight">Roles & RBAC Privileges</h1>
+          <p className="text-xs text-[#5e5f5c] mt-0.5">Configure granular authority rules across orders, inventory, catalog, and finances.</p>
         </div>
 
         <button
           onClick={handleOpenCreate}
-          className="bg-rose-500 hover:bg-rose-600 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-md transition-colors flex items-center gap-1.5"
+          className="bg-[#1a1a1a] hover:bg-[#000000] text-white font-semibold text-xs uppercase tracking-widest px-5 py-3 rounded-lg shadow-xs transition-colors flex items-center gap-2 self-start sm:self-auto"
         >
           <Plus className="w-4 h-4" /> Create Custom Role
         </button>
       </div>
 
-      <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs overflow-hidden">
-        <table className="w-full text-xs text-left text-slate-700">
-          <thead className="bg-slate-50 text-slate-500 font-bold uppercase text-[10px] tracking-wider border-b border-slate-100">
+      <div className="bg-white rounded-lg border border-[#e5e2e1] shadow-xs overflow-hidden">
+        <table className="w-full text-xs text-left text-[#1c1b1b]">
+          <thead className="bg-[#f7f3f2] text-[#5e5f5c] font-semibold uppercase text-[10px] tracking-wider border-b border-[#e5e2e1]">
             <tr>
-              <th className="p-4">Role Name</th>
+              <th className="p-4">Role Title</th>
               <th className="p-4">Description</th>
-              <th className="p-4">Permissions Count</th>
+              <th className="p-4">Granted Permissions</th>
               <th className="p-4">Type</th>
               <th className="p-4 text-right">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-[#e5e2e1]">
             {loading ? (
               <tr>
-                <td colSpan={5} className="p-8 text-center text-slate-400">Loading roles...</td>
+                <td colSpan={5} className="p-8 text-center text-[#5e5f5c]">Loading roles...</td>
               </tr>
             ) : (
               roles.map((r) => (
-                <tr key={r._id} className="hover:bg-slate-50 transition-colors">
-                  <td className="p-4 font-bold text-slate-900 flex items-center gap-2">
-                    <ShieldCheck className="w-4 h-4 text-rose-500" />
-                    <span>{r.name}</span>
+                <tr key={r._id} className="hover:bg-[#fdf8f8] transition-colors">
+                  <td className="p-4 font-semibold text-[#1a1a1a] flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4 text-[#1a1a1a]" />
+                    <span className="font-serif text-sm">{r.name}</span>
                   </td>
-                  <td className="p-4 text-slate-500 max-w-xs truncate">{r.description || '—'}</td>
+                  <td className="p-4 text-[#5e5f5c] max-w-xs truncate">{r.description || '—'}</td>
                   <td className="p-4">
-                    <span className="bg-slate-100 font-bold px-2 py-0.5 rounded-md">
-                      {r.permissions?.length || 0} permission(s)
+                    <span className="bg-[#f1edec] font-semibold px-2.5 py-0.5 rounded-md text-[11px] text-[#1a1a1a] border border-[#e5e2e1]">
+                      {r.permissions?.length || 0} permissions
                     </span>
                   </td>
                   <td className="p-4">
                     {r.isSystem ? (
-                      <span className="bg-purple-50 text-purple-700 font-bold px-2 py-0.5 rounded-full text-[10px]">System Role</span>
+                      <span className="bg-[#f1edec] text-[#1a1a1a] font-semibold px-2.5 py-0.5 rounded-full text-[10px] uppercase tracking-wider border border-[#e5e2e1]">Core System</span>
                     ) : (
-                      <span className="bg-sky-50 text-sky-700 font-bold px-2 py-0.5 rounded-full text-[10px]">Custom</span>
+                      <span className="bg-[#ebe7e6] text-[#5e5f5c] font-semibold px-2.5 py-0.5 rounded-full text-[10px] uppercase tracking-wider">Custom</span>
                     )}
                   </td>
                   <td className="p-4 text-right space-x-2">
-                    <button onClick={() => handleOpenEdit(r)} className="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700">
+                    <button onClick={() => handleOpenEdit(r)} className="p-2 rounded-md bg-[#f1edec] hover:bg-[#ebe7e6] text-[#1a1a1a] transition-colors">
                       <Edit3 className="w-3.5 h-3.5" />
                     </button>
                     {!r.isSystem && (
-                      <button onClick={() => handleDelete(r._id)} className="p-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600">
+                      <button onClick={() => handleDelete(r._id)} className="p-2 rounded-md bg-[#ffdad6]/40 hover:bg-[#ffdad6] text-[#ba1a1a] transition-colors">
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
                     )}
@@ -182,42 +183,42 @@ export default function AdminRolesPage() {
 
       {/* Role Editor Modal */}
       {dialogOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl p-6 max-w-2xl w-full shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
-            <h3 className="font-extrabold text-slate-900 text-base">
-              {editingRole ? `Edit Role: ${editingRole.name}` : 'Create Custom Role'}
+        <div className="fixed inset-0 z-50 bg-[#1a1a1a]/50 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-[#fdf8f8] rounded-lg p-6 sm:p-8 max-w-2xl w-full shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto border border-[#e5e2e1]">
+            <h3 className="font-serif font-bold text-[#1a1a1a] text-lg">
+              {editingRole ? `Edit Role: ${editingRole.name}` : 'Create Custom Role Definition'}
             </h3>
 
             <form onSubmit={handleSaveRole} className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">Role Name *</label>
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-[#1a1a1a] mb-1.5">Role Name *</label>
                   <input
                     type="text"
                     required
                     disabled={editingRole?.isSystem}
-                    placeholder="e.g. Fulfillment Specialist"
+                    placeholder="e.g. Concierge Specialist"
                     value={roleName}
                     onChange={(e) => setRoleName(e.target.value)}
-                    className="w-full px-3.5 py-2 text-xs rounded-xl bg-slate-50 border border-slate-200"
+                    className="w-full px-3.5 py-2.5 text-xs rounded-md bg-[#f7f3f2] border border-[#e5e2e1] focus:ring-1 focus:ring-[#1a1a1a] text-[#1a1a1a]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">Description</label>
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-[#1a1a1a] mb-1.5">Description</label>
                   <input
                     type="text"
-                    placeholder="Short description of duties"
+                    placeholder="Primary function and operations"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                    className="w-full px-3.5 py-2 text-xs rounded-xl bg-slate-50 border border-slate-200"
+                    className="w-full px-3.5 py-2.5 text-xs rounded-md bg-[#f7f3f2] border border-[#e5e2e1] focus:ring-1 focus:ring-[#1a1a1a] text-[#1a1a1a]"
                   />
                 </div>
               </div>
 
               {/* Module Permissions Matrix */}
               <div className="space-y-4 pt-2">
-                <h4 className="font-extrabold text-slate-900 text-xs uppercase tracking-wider">
+                <h4 className="font-serif font-bold text-[#1a1a1a] text-sm">
                   Module Permissions Checklist
                 </h4>
 
@@ -226,13 +227,13 @@ export default function AdminRolesPage() {
                     const allSelected = group.permissions.every((p) => selectedPermissions.includes(p));
 
                     return (
-                      <div key={groupKey} className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
+                      <div key={groupKey} className="p-4 rounded-lg bg-[#f7f3f2] border border-[#e5e2e1] space-y-2">
                         <div className="flex items-center justify-between">
-                          <span className="font-bold text-slate-800 text-xs">{group.label}</span>
+                          <span className="font-semibold text-[#1a1a1a] text-xs uppercase tracking-wider">{group.label}</span>
                           <button
                             type="button"
                             onClick={() => toggleGroup(group.permissions)}
-                            className="text-[11px] text-rose-600 font-bold hover:underline"
+                            className="text-[11px] text-[#1a1a1a] underline font-medium hover:opacity-75"
                           >
                             {allSelected ? 'Deselect All' : 'Select All'}
                           </button>
@@ -244,15 +245,15 @@ export default function AdminRolesPage() {
                             return (
                               <label
                                 key={perm}
-                                className={`flex items-center gap-2 p-2 rounded-xl border text-xs cursor-pointer transition-colors ${
-                                  isChecked ? 'bg-rose-50 border-rose-300 text-rose-900 font-bold' : 'bg-white border-slate-200 text-slate-600'
+                                className={`flex items-center gap-2 p-2 rounded-md border text-xs cursor-pointer transition-colors ${
+                                  isChecked ? 'bg-[#f1edec] border-[#1a1a1a] text-[#1a1a1a] font-semibold' : 'bg-white border-[#e5e2e1] text-[#5e5f5c]'
                                 }`}
                               >
                                 <input
                                   type="checkbox"
                                   checked={isChecked}
                                   onChange={() => togglePermission(perm)}
-                                  className="rounded text-rose-500 w-3.5 h-3.5"
+                                  className="rounded text-[#1a1a1a] w-3.5 h-3.5"
                                 />
                                 <span className="font-mono text-[10px]">{perm}</span>
                               </label>
@@ -265,9 +266,9 @@ export default function AdminRolesPage() {
                 </div>
               </div>
 
-              <div className="flex justify-end gap-3 pt-2">
-                <button type="button" onClick={() => setDialogOpen(false)} className="px-4 py-2 text-xs font-bold text-slate-600 bg-slate-100 rounded-xl">Cancel</button>
-                <button type="submit" className="px-6 py-2 text-xs font-bold text-white bg-rose-500 hover:bg-rose-600 rounded-xl shadow-md">Save Role</button>
+              <div className="flex justify-end gap-3 pt-3 border-t border-[#e5e2e1]">
+                <button type="button" onClick={() => setDialogOpen(false)} className="px-4 py-2.5 text-xs font-semibold text-[#5e5f5c] bg-[#f1edec] rounded-lg">Cancel</button>
+                <button type="submit" className="px-6 py-2.5 text-xs uppercase tracking-widest font-semibold text-white bg-[#1a1a1a] hover:bg-[#000000] rounded-lg shadow-xs">Save Role</button>
               </div>
             </form>
           </div>
@@ -276,3 +277,4 @@ export default function AdminRolesPage() {
     </div>
   );
 }
+

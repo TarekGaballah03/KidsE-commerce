@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { apiFetch } from '../../../../lib/api';
 import { formatPrice, formatDate } from '../../../../lib/utils';
 import { Order } from '../../../../types';
-import { Search, Filter, Eye, ChevronLeft, ChevronRight, Download } from 'lucide-react';
+import { Search, Eye, ChevronLeft, ChevronRight, Download } from 'lucide-react';
 
 export default function AdminOrdersPage() {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -46,24 +46,25 @@ export default function AdminOrdersPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-7xl mx-auto">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">Orders Management</h1>
-          <p className="text-xs text-slate-500 mt-0.5">Manage customer Cash on Delivery orders, delivery status & invoices.</p>
+          <span className="text-[11px] uppercase font-semibold tracking-[0.2em] text-[#5e5f5c] block">Order Operations</span>
+          <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#1a1a1a] tracking-tight">Client Dispatches & Orders</h1>
+          <p className="text-xs text-[#5e5f5c] mt-0.5">Manage customer COD orders, delivery pipelines, invoices, and fulfillment.</p>
         </div>
 
         <button
           onClick={handleExportCsv}
-          className="bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-xs transition-colors flex items-center gap-1.5 self-start sm:self-auto"
+          className="bg-[#1a1a1a] hover:bg-[#000000] text-white font-semibold text-xs uppercase tracking-widest px-5 py-3 rounded-lg shadow-xs transition-colors flex items-center gap-2 self-start sm:self-auto"
         >
-          <Download className="w-4 h-4" /> Export Orders CSV
+          <Download className="w-4 h-4" /> Export Ledger CSV
         </button>
       </div>
 
       {/* Filter Bar */}
-      <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-2xs flex flex-col md:flex-row items-center gap-4">
+      <div className="bg-white p-4 rounded-lg border border-[#e5e2e1] shadow-xs flex flex-col md:flex-row items-center gap-4">
         {/* Search */}
         <div className="relative flex-1 w-full">
           <input
@@ -71,18 +72,18 @@ export default function AdminOrdersPage() {
             placeholder="Search by Order #, Customer Name, Phone..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-rose-300"
+            className="w-full pl-9 pr-3.5 py-2.5 text-xs rounded-md bg-[#f7f3f2] border border-[#e5e2e1] focus:ring-1 focus:ring-[#1a1a1a] focus:bg-white text-[#1a1a1a]"
           />
-          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
+          <Search className="w-4 h-4 text-[#5e5f5c] absolute left-3 top-3" />
         </div>
 
         {/* Status Filter */}
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="w-full md:w-48 text-xs font-bold bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800"
+          className="w-full md:w-48 text-xs font-semibold bg-[#f7f3f2] border border-[#e5e2e1] rounded-md px-3 py-2.5 text-[#1a1a1a]"
         >
-          <option value="">All Order Statuses</option>
+          <option value="">All Statuses</option>
           <option value="New">New</option>
           <option value="Confirmed">Confirmed</option>
           <option value="Preparing">Preparing</option>
@@ -97,7 +98,7 @@ export default function AdminOrdersPage() {
         <select
           value={governorateFilter}
           onChange={(e) => setGovernorateFilter(e.target.value)}
-          className="w-full md:w-44 text-xs font-bold bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800"
+          className="w-full md:w-44 text-xs font-semibold bg-[#f7f3f2] border border-[#e5e2e1] rounded-md px-3 py-2.5 text-[#1a1a1a]"
         >
           <option value="">All Governorates</option>
           <option value="Cairo">Cairo</option>
@@ -111,10 +112,10 @@ export default function AdminOrdersPage() {
       </div>
 
       {/* Orders Table */}
-      <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs overflow-hidden">
+      <div className="bg-white rounded-lg border border-[#e5e2e1] shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-xs text-left text-slate-700">
-            <thead className="bg-slate-50 text-slate-500 font-bold uppercase text-[10px] tracking-wider border-b border-slate-100">
+          <table className="w-full text-xs text-left text-[#1c1b1b]">
+            <thead className="bg-[#f7f3f2] text-[#5e5f5c] font-semibold uppercase text-[10px] tracking-wider border-b border-[#e5e2e1]">
               <tr>
                 <th className="p-4">Order #</th>
                 <th className="p-4">Customer</th>
@@ -122,37 +123,37 @@ export default function AdminOrdersPage() {
                 <th className="p-4">Governorate</th>
                 <th className="p-4">Total</th>
                 <th className="p-4">Status</th>
-                <th className="p-4">Date</th>
+                <th className="p-4">Placed Date</th>
                 <th className="p-4 text-right">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-[#e5e2e1]">
               {loading ? (
                 <tr>
-                  <td colSpan={8} className="p-8 text-center text-slate-400">Loading orders...</td>
+                  <td colSpan={8} className="p-8 text-center text-[#5e5f5c]">Loading orders...</td>
                 </tr>
               ) : orders.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="p-8 text-center text-slate-400">No orders found matching filters.</td>
+                  <td colSpan={8} className="p-8 text-center text-[#5e5f5c]">No orders found matching filters.</td>
                 </tr>
               ) : (
                 orders.map((ord) => (
-                  <tr key={ord._id} className="hover:bg-slate-50/80 transition-colors">
-                    <td className="p-4 font-mono font-bold text-rose-600">#{ord.orderNumber}</td>
-                    <td className="p-4 font-bold text-slate-900">{ord.customerInfo.name}</td>
-                    <td className="p-4 text-slate-600">{ord.customerInfo.phone}</td>
+                  <tr key={ord._id} className="hover:bg-[#fdf8f8] transition-colors">
+                    <td className="p-4 font-mono font-semibold text-[#1a1a1a]">#{ord.orderNumber}</td>
+                    <td className="p-4 font-semibold text-[#1a1a1a]">{ord.customerInfo.name}</td>
+                    <td className="p-4 text-[#5e5f5c]">{ord.customerInfo.phone}</td>
                     <td className="p-4">{ord.shippingAddress.governorate}</td>
-                    <td className="p-4 font-extrabold text-slate-900">{formatPrice(ord.grandTotal)}</td>
+                    <td className="p-4 font-serif font-bold text-[#1a1a1a]">{formatPrice(ord.grandTotal)}</td>
                     <td className="p-4">
-                      <span className="bg-sky-50 text-sky-700 font-bold px-2.5 py-0.5 rounded-full text-[11px]">
+                      <span className="bg-[#f1edec] text-[#1a1a1a] font-semibold px-2.5 py-1 rounded-full text-[11px] border border-[#e5e2e1]">
                         {ord.orderStatus}
                       </span>
                     </td>
-                    <td className="p-4 text-slate-500">{formatDate(ord.createdAt)}</td>
+                    <td className="p-4 text-[#5e5f5c]">{formatDate(ord.createdAt)}</td>
                     <td className="p-4 text-right">
                       <Link
                         href={`/admin/orders/${ord._id}`}
-                        className="inline-flex items-center gap-1 text-xs font-bold text-slate-700 hover:text-rose-600 bg-slate-100 hover:bg-rose-50 px-3 py-1.5 rounded-xl transition-colors"
+                        className="inline-flex items-center gap-1 text-xs font-semibold text-[#1a1a1a] hover:bg-[#ebe7e6] bg-[#f1edec] px-3 py-1.5 rounded-md transition-colors"
                       >
                         <Eye className="w-3.5 h-3.5" /> Details
                       </Link>
@@ -166,20 +167,20 @@ export default function AdminOrdersPage() {
 
         {/* Pagination */}
         {pages > 1 && (
-          <div className="p-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-            <span>Showing page {page} of {pages} ({total} total orders)</span>
+          <div className="p-4 border-t border-[#e5e2e1] flex items-center justify-between text-xs text-[#5e5f5c]">
+            <span>Showing page {page} of {pages} ({total} total dispatches)</span>
             <div className="flex items-center gap-2">
               <button
                 disabled={page <= 1}
                 onClick={() => setPage(page - 1)}
-                className="p-1.5 rounded-lg border border-slate-200 disabled:opacity-40 hover:bg-slate-50"
+                className="p-1.5 rounded-md border border-[#e5e2e1] disabled:opacity-40 hover:bg-[#f1edec]"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
               <button
                 disabled={page >= pages}
                 onClick={() => setPage(page + 1)}
-                className="p-1.5 rounded-lg border border-slate-200 disabled:opacity-40 hover:bg-slate-50"
+                className="p-1.5 rounded-md border border-[#e5e2e1] disabled:opacity-40 hover:bg-[#f1edec]"
               >
                 <ChevronRight className="w-4 h-4" />
               </button>
@@ -191,3 +192,4 @@ export default function AdminOrdersPage() {
     </div>
   );
 }
+

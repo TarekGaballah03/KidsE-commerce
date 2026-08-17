@@ -1,29 +1,38 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Little Dreamers | Creative & Premium Kids Fashion",
-  description: "Shop modern, comfortable, high quality kids fashion and accessories in Egypt.",
+  title: "Swan | Editorial Kids Commerce",
+  description: "Sophisticated, high-end editorial children's fashion and lifestyle curated for memorable moments.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${playfair.variable} ${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col font-sans bg-[#fdf8f8] text-[#1a1a1a] selection:bg-[#1a1a1a] selection:text-white">
+        {children}
+      </body>
     </html>
   );
 }
+

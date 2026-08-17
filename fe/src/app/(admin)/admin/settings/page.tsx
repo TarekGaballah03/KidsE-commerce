@@ -82,139 +82,140 @@ export default function AdminSettingsPage() {
 
   if (loading) {
     return (
-      <div className="py-20 text-center">
-        <div className="w-10 h-10 border-4 border-rose-500 border-t-transparent rounded-full animate-spin mx-auto" />
-        <p className="text-xs text-slate-500 mt-3 font-medium">Loading store settings...</p>
+      <div className="py-24 text-center">
+        <div className="w-8 h-8 border-2 border-[#1a1a1a] border-t-transparent rounded-full animate-spin mx-auto" />
+        <p className="text-xs text-[#5e5f5c] mt-3 font-semibold uppercase tracking-widest">Loading configuration parameters...</p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-8 max-w-4xl">
+    <div className="space-y-8 max-w-5xl mx-auto">
       <div>
-        <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">Store Settings & Shipping Rates</h1>
-        <p className="text-xs text-slate-500 mt-0.5">Configure store branding, currency, free shipping rules, and delivery fees per governorate.</p>
+        <span className="text-[11px] uppercase font-semibold tracking-[0.2em] text-[#5e5f5c] block">Platform Setup</span>
+        <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#1a1a1a] tracking-tight">Store Settings & Shipping Rates</h1>
+        <p className="text-xs text-[#5e5f5c] mt-0.5">Configure store identity, complimentary shipping threshold, and regional delivery tariffs.</p>
       </div>
 
       {/* Store Identity Settings Form */}
       {settings && (
-        <form onSubmit={handleSaveSettings} className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs space-y-4">
-          <h3 className="font-extrabold text-slate-900 text-sm flex items-center gap-2">
-            <SettingsIcon className="w-4 h-4 text-rose-500" /> Store Branding & Defaults
+        <form onSubmit={handleSaveSettings} className="bg-white p-6 sm:p-8 rounded-lg border border-[#e5e2e1] shadow-xs space-y-5">
+          <h3 className="font-serif font-bold text-[#1a1a1a] text-base flex items-center gap-2">
+            <SettingsIcon className="w-4 h-4 text-[#1a1a1a]" /> Store Identity & Regional Parameters
           </h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">Store Name</label>
+              <label className="block text-xs font-semibold uppercase tracking-wider text-[#1a1a1a] mb-1.5">Store Title</label>
               <input
                 type="text"
                 value={settings.storeName}
                 onChange={(e) => setSettings({ ...settings, storeName: e.target.value })}
-                className="w-full px-3.5 py-2 text-xs rounded-xl bg-slate-50 border border-slate-200"
+                className="w-full px-3.5 py-2.5 text-xs rounded-md bg-[#f7f3f2] border border-[#e5e2e1] focus:ring-1 focus:ring-[#1a1a1a] text-[#1a1a1a]"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">Currency</label>
+              <label className="block text-xs font-semibold uppercase tracking-wider text-[#1a1a1a] mb-1.5">Operational Currency</label>
               <input
                 type="text"
                 disabled
                 value="EGP (Egyptian Pound)"
-                className="w-full px-3.5 py-2 text-xs font-bold rounded-xl bg-slate-100 border border-slate-200"
+                className="w-full px-3.5 py-2.5 text-xs font-semibold rounded-md bg-[#f1edec] border border-[#e5e2e1] text-[#5e5f5c]"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">Free Shipping Threshold (EGP) *</label>
+              <label className="block text-xs font-semibold uppercase tracking-wider text-[#1a1a1a] mb-1.5">Complimentary Shipping Threshold (EGP) *</label>
               <input
                 type="number"
                 value={settings.freeShippingThreshold}
                 onChange={(e) => setSettings({ ...settings, freeShippingThreshold: Number(e.target.value) })}
-                className="w-full px-3.5 py-2 text-xs font-bold rounded-xl bg-slate-50 border border-slate-200"
+                className="w-full px-3.5 py-2.5 text-xs font-semibold rounded-md bg-[#f7f3f2] border border-[#e5e2e1] focus:ring-1 focus:ring-[#1a1a1a] text-[#1a1a1a]"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">Store Contact Phone</label>
+              <label className="block text-xs font-semibold uppercase tracking-wider text-[#1a1a1a] mb-1.5">Concierge Phone Number</label>
               <input
                 type="text"
                 value={settings.phone}
                 onChange={(e) => setSettings({ ...settings, phone: e.target.value })}
-                className="w-full px-3.5 py-2 text-xs rounded-xl bg-slate-50 border border-slate-200"
+                className="w-full px-3.5 py-2.5 text-xs rounded-md bg-[#f7f3f2] border border-[#e5e2e1] focus:ring-1 focus:ring-[#1a1a1a] text-[#1a1a1a]"
               />
             </div>
 
             <div className="sm:col-span-2">
-              <label className="block text-xs font-bold text-slate-700 mb-1">Instagram Profile URL</label>
+              <label className="block text-xs font-semibold uppercase tracking-wider text-[#1a1a1a] mb-1.5">Instagram Lookbook URL</label>
               <input
                 type="text"
                 value={settings.socialLinks?.instagram || ''}
                 onChange={(e) => setSettings({ ...settings, socialLinks: { ...settings.socialLinks, instagram: e.target.value } })}
-                className="w-full px-3.5 py-2 text-xs rounded-xl bg-slate-50 border border-slate-200"
+                className="w-full px-3.5 py-2.5 text-xs rounded-md bg-[#f7f3f2] border border-[#e5e2e1] focus:ring-1 focus:ring-[#1a1a1a] text-[#1a1a1a]"
               />
             </div>
           </div>
 
-          <div className="flex justify-end pt-2">
+          <div className="flex justify-end pt-3 border-t border-[#e5e2e1]">
             <button
               type="submit"
               disabled={savingSettings}
-              className="bg-rose-500 hover:bg-rose-600 text-white font-bold text-xs px-6 py-2.5 rounded-xl shadow-md transition-colors flex items-center gap-1.5"
+              className="bg-[#1a1a1a] hover:bg-[#000000] text-white font-semibold text-xs uppercase tracking-widest px-6 py-3 rounded-lg shadow-xs transition-colors flex items-center gap-2"
             >
-              <Save className="w-4 h-4" /> Save Store Settings
+              <Save className="w-4 h-4" /> Save Identity Settings
             </button>
           </div>
         </form>
       )}
 
       {/* Governorate Shipping Rates Table */}
-      <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs overflow-hidden p-6 space-y-4">
-        <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-          <h3 className="font-extrabold text-slate-900 text-sm flex items-center gap-2">
-            <Truck className="w-4 h-4 text-sky-500" /> Configurable Shipping Zones & Fees
+      <div className="bg-white rounded-lg border border-[#e5e2e1] shadow-xs overflow-hidden p-6 sm:p-8 space-y-5">
+        <div className="flex items-center justify-between border-b border-[#e5e2e1] pb-3">
+          <h3 className="font-serif font-bold text-[#1a1a1a] text-base flex items-center gap-2">
+            <Truck className="w-4 h-4 text-[#1a1a1a]" /> Governorate Shipping Tariffs & Zones
           </h3>
         </div>
 
         {/* Custom Zone Form */}
-        <form onSubmit={handleAddCustomZone} className="flex items-center gap-3 bg-slate-50 p-3 rounded-2xl border border-slate-200">
+        <form onSubmit={handleAddCustomZone} className="flex items-center gap-3 bg-[#f7f3f2] p-3 rounded-md border border-[#e5e2e1]">
           <input
             type="text"
             placeholder="Governorate Name"
             value={govName}
             onChange={(e) => setGovName(e.target.value)}
-            className="flex-1 px-3 py-1.5 text-xs rounded-xl border border-slate-200 bg-white"
+            className="flex-1 px-3.5 py-2 text-xs rounded-md border border-[#e5e2e1] bg-white text-[#1a1a1a]"
           />
           <input
             type="number"
-            placeholder="Fee EGP"
+            placeholder="Tariff EGP"
             value={govFee}
             onChange={(e) => setGovFee(Number(e.target.value))}
-            className="w-28 px-3 py-1.5 text-xs font-bold rounded-xl border border-slate-200 bg-white"
+            className="w-28 px-3.5 py-2 text-xs font-semibold rounded-md border border-[#e5e2e1] bg-white text-[#1a1a1a]"
           />
           <button
             type="submit"
             disabled={savingZone}
-            className="bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs px-4 py-1.5 rounded-xl flex items-center gap-1"
+            className="bg-[#1a1a1a] hover:bg-[#000000] text-white font-semibold text-xs uppercase tracking-wider px-4 py-2 rounded-md flex items-center gap-1.5"
           >
-            <Plus className="w-3.5 h-3.5" /> Add / Update Zone
+            <Plus className="w-3.5 h-3.5" /> Save Zone
           </button>
         </form>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-2">
           {shippingZones.map((z) => (
-            <div key={z._id} className="p-3 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+            <div key={z._id} className="p-3.5 rounded-md bg-[#f7f3f2] border border-[#e5e2e1] flex items-center justify-between">
               <div>
-                <span className="font-bold text-slate-900 text-xs block">{z.governorate}</span>
-                <span className="text-[11px] text-slate-500">Shipping Fee</span>
+                <span className="font-semibold text-[#1a1a1a] text-xs block">{z.governorate}</span>
+                <span className="text-[11px] text-[#5e5f5c]">COD Delivery</span>
               </div>
               <div className="flex items-center gap-2">
                 <input
                   type="number"
                   defaultValue={z.fee}
                   onBlur={(e) => handleUpsertZone(z.governorate, Number(e.target.value), z.isActive)}
-                  className="w-16 px-2 py-1 text-xs font-extrabold text-rose-600 bg-white rounded-lg border border-slate-300 text-right"
+                  className="w-16 px-2 py-1 text-xs font-serif font-bold text-[#1a1a1a] bg-white rounded-md border border-[#e5e2e1] text-right"
                 />
-                <span className="text-xs font-bold text-slate-700">EGP</span>
+                <span className="text-xs font-serif font-bold text-[#5e5f5c]">EGP</span>
               </div>
             </div>
           ))}
@@ -224,3 +225,4 @@ export default function AdminSettingsPage() {
     </div>
   );
 }
+

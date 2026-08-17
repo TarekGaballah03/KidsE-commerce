@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { apiFetch } from '../../../../lib/api';
 import { formatPrice } from '../../../../lib/utils';
-import { Search, Users, Edit } from 'lucide-react';
+import { Search, Edit } from 'lucide-react';
 
 export default function AdminCustomersPage() {
   const [customers, setCustomers] = useState<any[]>([]);
@@ -45,65 +45,67 @@ export default function AdminCustomersPage() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-6 max-w-6xl mx-auto">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">Customer Directory</h1>
-          <p className="text-xs text-slate-500 mt-0.5">View customer lifetime spending, order counts & notes.</p>
+          <span className="text-[11px] uppercase font-semibold tracking-[0.2em] text-[#5e5f5c] block">Client Directory</span>
+          <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#1a1a1a] tracking-tight">Clientele & Concierge Ledger</h1>
+          <p className="text-xs text-[#5e5f5c] mt-0.5">View customer lifetime spend, dispatch counts, delivery preferences, and notes.</p>
         </div>
       </div>
 
-      <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-2xs">
+      <div className="bg-white p-4 rounded-lg border border-[#e5e2e1] shadow-xs">
         <div className="relative">
           <input
             type="text"
-            placeholder="Search customers by name, phone, or email..."
+            placeholder="Search clientele by full name, phone number, or email..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-rose-300"
+            className="w-full pl-9 pr-3.5 py-2.5 text-xs rounded-md bg-[#f7f3f2] border border-[#e5e2e1] focus:ring-1 focus:ring-[#1a1a1a] focus:bg-white text-[#1a1a1a]"
           />
-          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
+          <Search className="w-4 h-4 text-[#5e5f5c] absolute left-3 top-3" />
         </div>
       </div>
 
-      <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xs overflow-hidden">
-        <table className="w-full text-xs text-left text-slate-700">
-          <thead className="bg-slate-50 text-slate-500 font-bold uppercase text-[10px] tracking-wider border-b border-slate-100">
+      <div className="bg-white rounded-lg border border-[#e5e2e1] shadow-xs overflow-hidden">
+        <table className="w-full text-xs text-left text-[#1c1b1b]">
+          <thead className="bg-[#f7f3f2] text-[#5e5f5c] font-semibold uppercase text-[10px] tracking-wider border-b border-[#e5e2e1]">
             <tr>
-              <th className="p-4">Customer Name</th>
+              <th className="p-4">Client Name</th>
               <th className="p-4">Phone</th>
               <th className="p-4">Email</th>
               <th className="p-4">Total Orders</th>
-              <th className="p-4">Lifetime Spent</th>
-              <th className="p-4">Notes</th>
+              <th className="p-4">Lifetime Spend</th>
+              <th className="p-4">Concierge Notes</th>
               <th className="p-4 text-right">Action</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-[#e5e2e1]">
             {loading ? (
               <tr>
-                <td colSpan={7} className="p-8 text-center text-slate-400">Loading customers...</td>
+                <td colSpan={7} className="p-8 text-center text-[#5e5f5c]">Loading clientele records...</td>
               </tr>
             ) : customers.length === 0 ? (
               <tr>
-                <td colSpan={7} className="p-8 text-center text-slate-400">No customers found.</td>
+                <td colSpan={7} className="p-8 text-center text-[#5e5f5c]">No client records found.</td>
               </tr>
             ) : (
               customers.map((c) => (
-                <tr key={c._id} className="hover:bg-slate-50 transition-colors">
-                  <td className="p-4 font-bold text-slate-900">{c.name}</td>
-                  <td className="p-4 font-semibold text-slate-700">{c.phone}</td>
-                  <td className="p-4 text-slate-500">{c.email || '—'}</td>
-                  <td className="p-4 font-bold">{c.totalOrders || 0}</td>
-                  <td className="p-4 font-extrabold text-rose-600">{formatPrice(c.totalSpent || 0)}</td>
-                  <td className="p-4 text-slate-500 truncate max-w-xs">{c.notes || '—'}</td>
+                <tr key={c._id} className="hover:bg-[#fdf8f8] transition-colors">
+                  <td className="p-4 font-semibold text-[#1a1a1a]">{c.name}</td>
+                  <td className="p-4 text-[#5e5f5c] font-mono">{c.phone}</td>
+                  <td className="p-4 text-[#5e5f5c]">{c.email || '—'}</td>
+                  <td className="p-4 font-semibold text-[#1a1a1a]">{c.totalOrders || 0}</td>
+                  <td className="p-4 font-serif font-bold text-[#1a1a1a]">{formatPrice(c.totalSpent || 0)}</td>
+                  <td className="p-4 text-[#5e5f5c] truncate max-w-xs">{c.notes || '—'}</td>
                   <td className="p-4 text-right">
                     <button
                       onClick={() => {
                         setEditingCustomer(c);
                         setNotes(c.notes || '');
                       }}
-                      className="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700"
+                      className="p-2 rounded-md bg-[#f1edec] hover:bg-[#ebe7e6] text-[#1a1a1a] transition-colors"
+                      title="Edit Notes"
                     >
                       <Edit className="w-3.5 h-3.5" />
                     </button>
@@ -116,25 +118,25 @@ export default function AdminCustomersPage() {
       </div>
 
       {editingCustomer && (
-        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl space-y-4">
-            <h3 className="font-extrabold text-slate-900 text-base">Edit Notes for {editingCustomer.name}</h3>
+        <div className="fixed inset-0 z-50 bg-[#1a1a1a]/50 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-[#fdf8f8] rounded-lg p-6 sm:p-8 max-w-md w-full shadow-2xl space-y-5 border border-[#e5e2e1]">
+            <h3 className="font-serif font-bold text-[#1a1a1a] text-lg">Concierge Notes: {editingCustomer.name}</h3>
 
             <form onSubmit={handleSaveNotes} className="space-y-4">
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Customer Notes</label>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-[#1a1a1a] mb-1.5">Client Profile Notes</label>
                 <textarea
-                  rows={3}
+                  rows={4}
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  placeholder="Internal preferences, delivery notes..."
-                  className="w-full px-3.5 py-2 text-xs rounded-xl bg-slate-50 border border-slate-200"
+                  placeholder="Delivery timing preferences, sizing notes, VIP considerations..."
+                  className="w-full px-3.5 py-2.5 text-xs rounded-md bg-[#f7f3f2] border border-[#e5e2e1] focus:ring-1 focus:ring-[#1a1a1a] text-[#1a1a1a]"
                 />
               </div>
 
-              <div className="flex justify-end gap-3 pt-2">
-                <button type="button" onClick={() => setEditingCustomer(null)} className="px-4 py-2 text-xs font-bold text-slate-600 bg-slate-100 rounded-xl">Cancel</button>
-                <button type="submit" className="px-5 py-2 text-xs font-bold text-white bg-rose-500 hover:bg-rose-600 rounded-xl shadow-md">Save Notes</button>
+              <div className="flex justify-end gap-3 pt-3 border-t border-[#e5e2e1]">
+                <button type="button" onClick={() => setEditingCustomer(null)} className="px-4 py-2.5 text-xs font-semibold text-[#5e5f5c] bg-[#f1edec] rounded-lg">Cancel</button>
+                <button type="submit" className="px-5 py-2.5 text-xs uppercase tracking-widest font-semibold text-white bg-[#1a1a1a] hover:bg-[#000000] rounded-lg shadow-xs">Save Notes</button>
               </div>
             </form>
           </div>
@@ -143,3 +145,4 @@ export default function AdminCustomersPage() {
     </div>
   );
 }
+

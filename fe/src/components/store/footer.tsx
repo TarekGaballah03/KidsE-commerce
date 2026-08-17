@@ -20,38 +20,38 @@ const FacebookIcon = (props: any) => (
 
 export function Footer() {
   return (
-    <footer className="bg-slate-900 text-slate-300 pt-16 pb-12 mt-20 border-t-4 border-rose-400">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer className="bg-[#1a1a1a] text-[#ddd9d8] pt-16 pb-12 mt-20 border-t border-[#313030]">
+      <div className="max-w-7xl mx-auto px-6 sm:px-12">
         
         {/* Top Features Bar */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pb-12 mb-12 border-b border-slate-800 text-center sm:text-left">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pb-12 mb-12 border-b border-[#313030] text-center sm:text-left">
           <div className="flex items-center justify-center sm:justify-start gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-rose-500/10 text-rose-400 flex items-center justify-center shrink-0">
-              <Truck className="w-6 h-6" />
+            <div className="w-11 h-11 rounded-lg bg-[#313030] text-[#fdf8f8] flex items-center justify-center shrink-0">
+              <Truck className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="font-bold text-white text-sm">Fast COD Delivery</h4>
-              <p className="text-xs text-slate-400">Doorstep delivery across all Egypt Governorates</p>
+              <h4 className="font-semibold text-white text-sm">Swift Doorstep Delivery</h4>
+              <p className="text-xs text-[#858383]">Across all Egypt governorates</p>
             </div>
           </div>
 
           <div className="flex items-center justify-center sm:justify-start gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-sky-500/10 text-sky-400 flex items-center justify-center shrink-0">
-              <ShieldCheck className="w-6 h-6" />
+            <div className="w-11 h-11 rounded-lg bg-[#313030] text-[#fdf8f8] flex items-center justify-center shrink-0">
+              <ShieldCheck className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="font-bold text-white text-sm">100% Cash on Delivery</h4>
-              <p className="text-xs text-slate-400">Inspect product upon delivery before payment</p>
+              <h4 className="font-semibold text-white text-sm">Cash on Delivery</h4>
+              <p className="text-xs text-[#858383]">Inspect upon receipt prior to payment</p>
             </div>
           </div>
 
           <div className="flex items-center justify-center sm:justify-start gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center shrink-0">
-              <RefreshCw className="w-6 h-6" />
+            <div className="w-11 h-11 rounded-lg bg-[#313030] text-[#fdf8f8] flex items-center justify-center shrink-0">
+              <RefreshCw className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="font-bold text-white text-sm">Easy Exchanges</h4>
-              <p className="text-xs text-slate-400">Hassle-free size exchange policy</p>
+              <h4 className="font-semibold text-white text-sm">Effortless Exchanges</h4>
+              <p className="text-xs text-[#858383]">Dedicated customer support team</p>
             </div>
           </div>
         </div>
@@ -60,21 +60,23 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           {/* Brand Info */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-xl bg-rose-500 flex items-center justify-center text-white font-bold">
-                ✨
-              </div>
-              <span className="font-extrabold text-xl text-white">Little Dreamers</span>
-            </div>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Egypt's favorite boutique brand for comfortable, stylish, high quality kids apparel & essentials. Designed for play, twirls, and happy memories.
+            <Link href="/" className="inline-block">
+              <span className="font-serif text-3xl font-bold tracking-tight text-white">
+                Swan
+              </span>
+              <span className="block text-[10px] uppercase font-bold tracking-[0.2em] text-[#858383] mt-0.5">
+                Editorial Kids Commerce
+              </span>
+            </Link>
+            <p className="text-xs text-[#c7c7c3] leading-relaxed max-w-xs">
+              Curating elevated play, gentle natural fabrics, and timeless aesthetics for modern families across Egypt.
             </p>
             <div className="flex items-center gap-3 pt-2">
               <a
                 href="https://instagram.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-8 h-8 rounded-full bg-slate-800 hover:bg-rose-500 hover:text-white flex items-center justify-center transition-colors"
+                className="w-8 h-8 rounded-full bg-[#313030] hover:bg-[#8fa89b] hover:text-white flex items-center justify-center transition-colors text-white"
                 aria-label="Instagram"
               >
                 <InstagramIcon />
@@ -83,7 +85,7 @@ export function Footer() {
                 href="https://facebook.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-8 h-8 rounded-full bg-slate-800 hover:bg-sky-500 hover:text-white flex items-center justify-center transition-colors"
+                className="w-8 h-8 rounded-full bg-[#313030] hover:bg-[#8fa89b] hover:text-white flex items-center justify-center transition-colors text-white"
                 aria-label="Facebook"
               >
                 <FacebookIcon />
@@ -93,31 +95,31 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-bold text-white text-sm mb-4">Shop Collections</h4>
-            <ul className="space-y-2.5 text-xs">
+            <h4 className="font-semibold text-white text-xs uppercase tracking-widest mb-4">Collections</h4>
+            <ul className="space-y-2.5 text-xs text-[#c7c7c3]">
               <li>
-                <Link href="/products?category=boys" className="hover:text-rose-400 transition-colors">
-                  Boys Wear (0-9+ Yrs)
+                <Link href="/products?category=boys" className="hover:text-white transition-colors">
+                  Boys Wear
                 </Link>
               </li>
               <li>
-                <Link href="/products?category=girls" className="hover:text-rose-400 transition-colors">
-                  Girls Dresses & Outfits
+                <Link href="/products?category=girls" className="hover:text-white transition-colors">
+                  Girls Collection
                 </Link>
               </li>
               <li>
-                <Link href="/products?category=babies" className="hover:text-rose-400 transition-colors">
+                <Link href="/products?category=babies" className="hover:text-white transition-colors">
                   Babies Organic Rompers
                 </Link>
               </li>
               <li>
-                <Link href="/products?category=accessories" className="hover:text-rose-400 transition-colors">
-                  Kids Accessories & Hats
+                <Link href="/products?category=accessories" className="hover:text-white transition-colors">
+                  Accessories & Essentials
                 </Link>
               </li>
               <li>
-                <Link href="/products?isNewArrival=true" className="hover:text-rose-400 transition-colors">
-                  New Arrivals
+                <Link href="/products?isNewArrival=true" className="hover:text-white transition-colors">
+                  New Season Arrivals
                 </Link>
               </li>
             </ul>
@@ -125,26 +127,26 @@ export function Footer() {
 
           {/* Customer Service */}
           <div>
-            <h4 className="font-bold text-white text-sm mb-4">Customer Care</h4>
-            <ul className="space-y-2.5 text-xs">
+            <h4 className="font-semibold text-white text-xs uppercase tracking-widest mb-4">Client Care</h4>
+            <ul className="space-y-2.5 text-xs text-[#c7c7c3]">
               <li>
-                <Link href="/orders/track" className="hover:text-rose-400 transition-colors">
-                  Track Your Order
+                <Link href="/orders" className="hover:text-white transition-colors">
+                  Track My Order
                 </Link>
               </li>
               <li>
-                <Link href="/checkout" className="hover:text-rose-400 transition-colors">
+                <Link href="/checkout" className="hover:text-white transition-colors">
                   Shipping Rates & Zones
                 </Link>
               </li>
               <li>
-                <Link href="/account/login" className="hover:text-rose-400 transition-colors">
-                  Customer Login
+                <Link href="/account" className="hover:text-white transition-colors">
+                  Account Overview
                 </Link>
               </li>
               <li>
-                <Link href="/admin/login" className="hover:text-rose-400 transition-colors text-slate-500">
-                  Admin Dashboard Login
+                <Link href="/admin/login" className="hover:text-white transition-colors text-[#858383]">
+                  Swan Workspace (Admin)
                 </Link>
               </li>
             </ul>
@@ -152,28 +154,28 @@ export function Footer() {
 
           {/* Contact Info */}
           <div className="space-y-3">
-            <h4 className="font-bold text-white text-sm mb-4">Contact Us</h4>
-            <div className="flex items-center gap-2.5 text-xs text-slate-400">
-              <Phone className="w-4 h-4 text-rose-400 shrink-0" />
-              <span>+20 100 123 4567 (WhatsApp Available)</span>
+            <h4 className="font-semibold text-white text-xs uppercase tracking-widest mb-4">Direct Contact</h4>
+            <div className="flex items-center gap-2.5 text-xs text-[#c7c7c3]">
+              <Phone className="w-4 h-4 text-[#8fa89b] shrink-0" />
+              <span>+20 100 123 4567 (WhatsApp)</span>
             </div>
-            <div className="flex items-center gap-2.5 text-xs text-slate-400">
-              <Mail className="w-4 h-4 text-rose-400 shrink-0" />
-              <span>hello@littledreamers.eg</span>
+            <div className="flex items-center gap-2.5 text-xs text-[#c7c7c3]">
+              <Mail className="w-4 h-4 text-[#8fa89b] shrink-0" />
+              <span>concierge@swan.eg</span>
             </div>
-            <div className="flex items-center gap-2.5 text-xs text-slate-400">
-              <MapPin className="w-4 h-4 text-rose-400 shrink-0" />
+            <div className="flex items-center gap-2.5 text-xs text-[#c7c7c3]">
+              <MapPin className="w-4 h-4 text-[#8fa89b] shrink-0" />
               <span>Cairo, Egypt</span>
             </div>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-slate-800 text-center sm:flex sm:items-center sm:justify-between text-xs text-slate-500">
-          <p>© {new Date().getFullYear()} Little Dreamers Kids Fashion & Co. All rights reserved.</p>
+        <div className="pt-8 border-t border-[#313030] text-center sm:flex sm:items-center sm:justify-between text-xs text-[#858383]">
+          <p>© {new Date().getFullYear()} Swan Kids Editorial Commerce. All rights reserved.</p>
           <div className="mt-2 sm:mt-0 flex items-center justify-center gap-2">
-            <span className="bg-slate-800 text-slate-300 px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider">
-              Cash On Delivery
+            <span className="bg-[#313030] text-[#e5e2e1] px-3 py-1 rounded-sm text-[10px] font-semibold uppercase tracking-wider">
+              Cash on Delivery (COD)
             </span>
           </div>
         </div>
@@ -181,3 +183,4 @@ export function Footer() {
     </footer>
   );
 }
+
